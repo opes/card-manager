@@ -9,8 +9,6 @@ export default function Dashboard() {
     const [queryTitle, setQueryTitle] = useState('')
     const [results, setSearchResults] = useState('')
 
-    console.log(queryId)
-
     useEffect(() => {
         const fetchCards = async () => {
             try {

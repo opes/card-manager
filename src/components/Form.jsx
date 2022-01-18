@@ -2,10 +2,10 @@ import { Link, useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import styles from '../App.css'
 import { deleteCardById } from '../services/cards';
+import { motion } from 'framer-motion';
 
 export default function Form({ handleCard, cardData }) {
     const history = useHistory()
-    console.log(cardData)
 
     const [title, setTitle] = useState(cardData.title || '')
     const [definition, setDefinition] = useState(cardData.definition || '')
@@ -21,7 +21,6 @@ export default function Form({ handleCard, cardData }) {
       if(name === 'category') setCategory(value)
       if(name === 'animal') setAnimal(value)
       if(name === 'source') setSource(value)
-
     }
 
     const newCardData = {
@@ -37,7 +36,7 @@ export default function Form({ handleCard, cardData }) {
       event.preventDefault()
       try {
         await handleCard(newCardData)
-        console.log(newCardData)
+        console.log('Added this to the db: ' + newCardData)
         history.replace('/')
       } catch (error) { 
         console.log(error)
@@ -59,6 +58,11 @@ export default function Form({ handleCard, cardData }) {
     }
 
     const animalIcons = ['axolotl', 'bear', 'bunny', 'chameleon', 'chick', 'deer', 'dinosaur', 'dog', 'frog', 'giraffe', 'hedgehog', 'lion', 'llama', 'octopus', 'raccoon', 'rat', 'sheep', 'shrimp', 'tiger', 'turtle']
+    const imgVariants = {
+        initial: { rotate: -180, opacity: 0 },
+        animate: { rotate: 0, opacity: 1, transition: { duration: 1 }},
+        hover: { x: [0, 10, 0], transition: { yoyo: 10 }}
+    }
 
     return (
         <div className={styles.formpreviewcontainer}>
@@ -89,7 +93,7 @@ export default function Form({ handleCard, cardData }) {
                     >
                         <option value="">Select Category</option>
                         <option value="pronoun">Pronoun</option>
-                        <option value="beyond">Beyond</option>
+                        <option value="gender">Gender</option>
                     </select>
                 </section>
 
@@ -134,7 +138,7 @@ export default function Form({ handleCard, cardData }) {
                     </select>
             
                 </section>
-                <p>**Please doublecheck the preview below before clicking submit**</p>
+                <p>**Please doublecheck the preview before clicking submit**</p>
                 <button type='submit'>Submit to DB</button>
                 {formError && <p>{formError}</p>}
                 {cardData && <button className={styles.delete} onClick={handleDelete}>Delete {title} from DB</button>}
@@ -145,12 +149,12 @@ export default function Form({ handleCard, cardData }) {
 
             <article>
                 <h3>Card Preview</h3>
-                {category && <p>This card appear in the {category} deck based on current category selection.</p>}
+                {category && <p>This card will appear in the {category} deck based on current category selection.</p>}
                 <div className={styles.cardpreview}>
                     <h2>{title}</h2>
                     <p>{definition}</p>
                     {source && <Link to={source}><p>Source</p></Link>}
-                    {animal && <img src={require(`../assets/icons/${animal}.png`)} alt={animal} />}
+                    {animal && <motion.img variants={imgVariants} initial={'initial'} animate={'animate'} whileHover={'hover'} src={require(`../assets/icons/${animal}.png`)} alt={animal} />}
                 </div>
             </article>
         </div>
