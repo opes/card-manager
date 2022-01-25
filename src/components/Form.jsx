@@ -15,34 +15,38 @@ export default function Form({ handleCard, cardData }) {
     const [formError, setFormError] = useState('')
 
     const handleFormChange = (event) => {
-      const { name, value } = event.target; 
-      if(name === 'title') setTitle(value.toLowerCase())
-      if(name === 'definition') setDefinition(value)
-      if(name === 'category') setCategory(value)
-      if(name === 'animal') setAnimal(value)
-      if(name === 'source') setSource(value)
+        const { name, value } = event.target;
+        // If you wanted to remove the duplication,
+        // you could have the form's state be an object,
+        // with each entry being:
+        //   [event.target.name]: event.target.value
+        if (name === 'title') setTitle(value.toLowerCase())
+        if (name === 'definition') setDefinition(value)
+        if (name === 'category') setCategory(value)
+        if (name === 'animal') setAnimal(value)
+        if (name === 'source') setSource(value)
     }
 
     const newCardData = {
-      title,
-      id: cardData.id,
-      definition,
-      source,
-      category,
-      animal
+        title,
+        id: cardData.id,
+        definition,
+        source,
+        category,
+        animal
     }
 
     const handleSubmit = async (event) => {
-      event.preventDefault()
-      try {
-        await handleCard(newCardData)
-        console.log('Added this to the db: ' + newCardData)
-        history.replace('/')
-      } catch (error) { 
-        console.log(error)
-        setFormError(error)
-      }
-    } 
+        event.preventDefault()
+        try {
+            await handleCard(newCardData)
+            console.log('Added this to the db: ' + newCardData)
+            history.replace('/')
+        } catch (error) {
+            console.log(error)
+            setFormError(error)
+        }
+    }
 
     const handleDelete = async () => {
         const idToDelete = cardData.id
@@ -60,88 +64,88 @@ export default function Form({ handleCard, cardData }) {
     const animalIcons = ['axolotl', 'bear', 'bunny', 'chameleon', 'chick', 'deer', 'dinosaur', 'dog', 'frog', 'giraffe', 'hedgehog', 'lion', 'llama', 'octopus', 'raccoon', 'rat', 'sheep', 'shrimp', 'tiger', 'turtle']
     const imgVariants = {
         initial: { rotate: -180, opacity: 0 },
-        animate: { rotate: 0, opacity: 1, transition: { duration: 1 }},
-        hover: { x: [0, 10, 0], transition: { yoyo: 10 }}
+        animate: { rotate: 0, opacity: 1, transition: { duration: 1 } },
+        hover: { x: [0, 10, 0], transition: { yoyo: 10 } }
     }
 
     return (
         <div className={styles.formpreviewcontainer}>
             <form onSubmit={handleSubmit}>
                 <fieldset>
-                <legend>Card</legend>
-                <section>
-                    <label htmlFor="title">Title</label>
-                    <input
-                    required
-                    id="title"
-                    type="name"
-                    name="title"
-                    value={title}
-                    onChange={handleFormChange}
-                    />
-                </section>
+                    <legend>Card</legend>
+                    <section>
+                        <label htmlFor="title">Title</label>
+                        <input
+                            required
+                            id="title"
+                            type="name"
+                            name="title"
+                            value={title}
+                            onChange={handleFormChange}
+                        />
+                    </section>
 
-                <section>
-                    <label htmlFor="category">Category</label>
-                    <select
-                    required
-                    id="category"
-                    type="text"
-                    name="category"
-                    value={category}
-                    onChange={handleFormChange}
-                    >
-                        <option value="">Select Category</option>
-                        <option value="pronoun">Pronoun</option>
-                        <option value="gender">Gender</option>
-                    </select>
-                </section>
+                    <section>
+                        <label htmlFor="category">Category</label>
+                        <select
+                            required
+                            id="category"
+                            type="text"
+                            name="category"
+                            value={category}
+                            onChange={handleFormChange}
+                        >
+                            <option value="">Select Category</option>
+                            <option value="pronoun">Pronoun</option>
+                            <option value="gender">Gender</option>
+                        </select>
+                    </section>
 
-                <section>
-                    <label htmlFor="definition">Definition</label>
-                    <textarea
-                    required
-                    id="definition"
-                    type="text"
-                    name="definition"
-                    value={definition}
-                    onChange={handleFormChange}
-                    />
-                </section>
+                    <section>
+                        <label htmlFor="definition">Definition</label>
+                        <textarea
+                            required
+                            id="definition"
+                            type="text"
+                            name="definition"
+                            value={definition}
+                            onChange={handleFormChange}
+                        />
+                    </section>
 
-                <section>
-                    <label htmlFor="source">Definition Source URL</label>
-                    <input
-                    id="source"
-                    type="name"
-                    name="source"
-                    value={source}
-                    onChange={handleFormChange}
-                    />
-                </section>
+                    <section>
+                        <label htmlFor="source">Definition Source URL</label>
+                        <input
+                            id="source"
+                            type="name"
+                            name="source"
+                            value={source}
+                            onChange={handleFormChange}
+                        />
+                    </section>
 
-                <section>
-                    <p>Before selecting an animal, please review the existing deck to ensure one animal is not being overused :)</p>
-                    <label htmlFor="animal">Animal</label>
-                    <select
-                    required
-                    id="animal"
-                    type="animal"
-                    name="animal"
-                    value={animal}
-                    onChange={handleFormChange}
-                    >
-                        <option value="">Select Animal</option>
-                        {animalIcons.map((animal) => 
-                            <option key={animal} value={animal}>{animal}</option>)
-                        }
-                    </select>
-            
-                </section>
-                <p>**Please doublecheck the preview before clicking submit**</p>
-                <button type='submit'>Submit to DB</button>
-                {formError && <p>{formError}</p>}
-                {cardData && <button className={styles.delete} onClick={handleDelete}>Delete {title} from DB</button>}
+                    <section>
+                        <p>Before selecting an animal, please review the existing deck to ensure one animal is not being overused :)</p>
+                        <label htmlFor="animal">Animal</label>
+                        <select
+                            required
+                            id="animal"
+                            type="animal"
+                            name="animal"
+                            value={animal}
+                            onChange={handleFormChange}
+                        >
+                            <option value="">Select Animal</option>
+                            {animalIcons.map((animal) =>
+                                <option key={animal} value={animal}>{animal}</option>)
+                            }
+                        </select>
+
+                    </section>
+                    <p>**Please doublecheck the preview before clicking submit**</p>
+                    <button type='submit'>Submit to DB</button>
+                    {formError && <p>{formError}</p>}
+                    {cardData && <button className={styles.delete} onClick={handleDelete}>Delete {title} from DB</button>}
 
                 </fieldset>
 

@@ -7,21 +7,21 @@ export async function getCards() {
 
 export async function getCard(id) {
   try {
-     const request = await client.from('cards').select().match({ id });
-      return parseData(request);
+    const request = await client.from('cards').select().match({ id });
+    return parseData(request);
   } catch (e) {
-      console.log(e)
-      return {}
+    console.log(e)
+    return {}
   }
 }
 
 export async function getCardbyTitle(title) {
   try {
-     const request = await client.from('cards').select().textSearch('title', title);
-      return parseData(request);
+    const request = await client.from('cards').select().textSearch('title', title);
+    return parseData(request);
   } catch (e) {
-      console.log(e)
-      return {}
+    console.log(e)
+    return {}
   }
 }
 
@@ -36,22 +36,21 @@ export async function updateCard({ title, id, definition, category, animal, sour
 export async function createCard({ title, definition, category, animal, source }) {
   try {
     const request = await client
-    .from('cards')
-    .insert({ title, definition, category, animal, source });
+      .from('cards')
+      .insert({ title, definition, category, animal, source });
     return parseData(request);
-    } catch (e) {
-      console.log(e)
-      return {}
-    }
+  } catch (e) {
+    console.log(e)
+    return {}
   }
+}
 
-  export async function deleteCardById(id) {
-    try {
-      const request = await client.from('cards').delete().match({ id });
-      return parseData(request);
-    } catch (e) {
-      console.log(e)
-      return {}
-    }
+export async function deleteCardById(id) {
+  try {
+    const request = await client.from('cards').delete().match({ id });
+    return parseData(request);
+  } catch (e) {
+    console.log(e)
+    return {}
   }
-  
+}

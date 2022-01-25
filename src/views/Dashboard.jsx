@@ -24,7 +24,7 @@ export default function Dashboard() {
     useEffect(() => {
         const fetchById = async () => {
             try {
-                if(queryId) {
+                if (queryId) {
                     const res = await getCard(queryId)
                     setSearchResults(res)
                 }
@@ -35,10 +35,10 @@ export default function Dashboard() {
         fetchById()
     }, [queryId])
 
-        useEffect(() => {
+    useEffect(() => {
         const fetchByTitle = async () => {
             try {
-                if(queryTitle) {
+                if (queryTitle) {
                     const res = await getCardbyTitle(queryTitle)
                     setSearchResults(res)
                 }
@@ -59,33 +59,33 @@ export default function Dashboard() {
                 <h3>Existing</h3>
                 {cards.length == 0 && <span>This DB is so empty!</span>}
                 <ul>
-                {cards.length > 0 && cards.map((card) => (
-                    <li key={card.id}>
-                        {card.title}
-                        <Link to={`/card/${card.id}`}><button>Edit</button></Link>
-                    </li>
-                ))}
+                    {cards.length > 0 && cards.map((card) => (
+                        <li key={card.id}>
+                            {card.title}
+                            <Link to={`/card/${card.id}`}><button>Edit</button></Link>
+                        </li>
+                    ))}
                 </ul>
             </section>
             <section className={styles.search}>
                 <h3>Search</h3>
-                    <div>
-                        <label htmlFor='id'>By ID</label>
-                        <input id='id' type='number' name='id' value={queryId} onChange={((e) => setQueryId(e.target.value))} />
-                    </div>
-                    <div>
-                        <label htmlFor='title'>By Title</label>
-                        <input id='title' type='text' name='title' value={queryTitle} onChange={((e) => setQueryTitle(e.target.value))} />
-                    </div>
+                <div>
+                    <label htmlFor='id'>By ID</label>
+                    <input id='id' type='number' name='id' value={queryId} onChange={((e) => setQueryId(e.target.value))} />
+                </div>
+                <div>
+                    <label htmlFor='title'>By Title</label>
+                    <input id='title' type='text' name='title' value={queryTitle} onChange={((e) => setQueryTitle(e.target.value))} />
+                </div>
                 <h4>Results</h4>
-                    {!results && <span>Enter a search term above.</span>}
-                    <ul>
-                    {results && results.map((card) =>                     
+                {!results && <span>Enter a search term above.</span>}
+                <ul>
+                    {results && results.map((card) =>
                         <li key={card.id}>
                             {card.title}
                             <Link to={`/card/${card.id}`}><button>Edit</button></Link>
                         </li>)}
-                    </ul>
+                </ul>
             </section>
         </main>
     )

@@ -10,7 +10,7 @@ export default function EditCard() {
 
     useEffect(() => {
         const fetchCard = async () => {
-            if (id !== 'new'){
+            if (id !== 'new') {
                 try {
                     const [cardData] = await getCard(id)
                     setOldCard(cardData)
@@ -19,16 +19,16 @@ export default function EditCard() {
                 }
             }
         }
-        fetchCard(id)     
+        fetchCard(id)
     }, [id])
 
     return (
         <>
             <nav>
-            <Link to='/'>Back to Dashboard</Link>
+                <Link to='/'>Back to Dashboard</Link>
             </nav>
-            {oldCard && <Form handleCard={updateCard} cardData={oldCard}/>}
-            {!oldCard && <Form handleCard={createCard} cardData={''}/>}
+            {oldCard && <Form handleCard={updateCard} cardData={oldCard} />}
+            {!oldCard && <Form handleCard={createCard} cardData={''} />}
         </>
     )
 }

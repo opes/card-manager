@@ -8,16 +8,16 @@ export default function App() {
   return (
     <>
       <Header />
-    <Router>
-      <Switch>
-        <Route exact path='/'>
-          <Dashboard />
-        </Route>
-        <Route path='/card/:id'>
-          <EditCard />
-        </Route>
-      </Switch>
-    </Router>
+      <Router>
+        <Switch>
+          <Route exact path='/'>
+            <Dashboard />
+          </Route>
+          <Route path='/card/:id'>
+            <EditCard />
+          </Route>
+        </Switch>
+      </Router>
     </>
   )
 }
